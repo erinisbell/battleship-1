@@ -17,6 +17,11 @@ class Grid
     @ships.find{|ship| ship.covers? x, y}
   end
 
+  def sunk?
+    return false if @ships.empty?
+    @ships.select{|ship| ship.sunk?}.count == @ships.count
+  end
+
   def display
     puts "    1   2   3   4   5   6   7   8   9   10"
     puts seperator
@@ -35,6 +40,14 @@ class Grid
     end
   end
 
+  def y_of str
+    str[0].upcase.ord - 64
+  end
+
+  def x_of str
+    str[1..-1].to_i
+  end
+
   private
 
   def seperator
@@ -42,7 +55,7 @@ class Grid
   end
 
   def grid_line letter
-    y = letter_to_y(letter)
+    y = y_of(letter)
     slots = []
     (1..10).each do |x|
       ship = has_ship_on? x, y
@@ -54,9 +67,5 @@ class Grid
       end
     end
     "#{letter} | #{slots.join(" | ")} |"
-  end
-
-  def letter_to_y ltr
-    ltr.upcase.ord - 64
   end
 end
