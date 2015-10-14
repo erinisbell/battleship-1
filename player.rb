@@ -10,6 +10,10 @@ class Player
     @shots = Grid.new
   end
 
+  def add_shot hole
+    @shots << hole
+  end
+
   def place_ships lengths
     lengths.each do |length|
       until place_ship length

@@ -3,6 +3,11 @@ class Grid
 
   def initialize
     @ships = []
+    @shots = []
+  end
+
+  def << hole
+    @shots << hole
   end
 
   def fire_at x, y
@@ -68,9 +73,10 @@ class Grid
     y = y_of(letter)
     slots = []
     (1..10).each do |x|
-      ship = has_ship_on? x, y
-      if ship
+      if ship = has_ship_on?(x, y)
         hole = ship.covers? x, y
+        slots << hole.to_s
+      elsif hole = @shots.find {|s| s.x == x && s.y == y}
         slots << hole.to_s
       else
         slots << " "

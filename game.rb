@@ -11,12 +11,18 @@ class Game
 
   def take_turn
     shot = current_player.call_shot
-    fire = other_player.grid.fire_at Grid.x_of(shot), Grid.y_of(shot)
+    x = Grid.x_of(shot)
+    y = Grid.y_of(shot)
+    fire = other_player.grid.fire_at x, y
+    hole = Hole.new [x, y]
     if fire
+      hole.plus!
       puts "Hit!"
     else
+      hole.minus!
       puts "Miss!"
     end
+    current_player.add_shot hole
     @current_player = (@current_player + 1) % 2
   end
 

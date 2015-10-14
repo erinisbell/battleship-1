@@ -1,7 +1,8 @@
 class Hole
   EMPTY = 0
   HIT = 1
-  MISS = 2
+  PLUS = 2
+  MINUS = 3
   attr_reader :x, :y
   def initialize vector
     @x = vector[0]
@@ -24,13 +25,24 @@ class Hole
     @state == HIT
   end
 
+  def plus!
+    @state = PLUS
+  end
+
+  def minus!
+    @state = MINUS
+  end
+
   def to_s
     case @state
       when HIT
         return "X"
-      when MISS
       when EMPTY
         return "O"
+      when PLUS
+        return "+"
+      when MINUS
+        return "-"
     end
   end
 end
