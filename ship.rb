@@ -13,18 +13,7 @@ class Ship
   end
 
   def covers? x, y
-    x_itr = @origin[0]
-    y_itr = @origin[1]
-
-    @length.times do
-      return true if x_itr == x && y_itr == y
-      if @horizontal
-        x_itr += 1
-      else
-        y_itr += 1
-      end
-    end
-    false
+    positions.find { |pos| pos[0] == x && pos[1] == y}
   end
 
   def overlaps_with? ship
@@ -34,13 +23,14 @@ class Ship
   private
 
   def positions
-    list = []
+    return @positions if @positions
+    @positions = []
     delta = Vector[@horizontal ? 1 : 0, @horizontal ? 0 : 1]
     accumulator = @origin
     @length.times do
-      list << accumulator
+      @positions << accumulator
       accumulator += delta
     end
-    list
+    @positions
   end
 end
