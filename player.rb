@@ -7,6 +7,7 @@ class Player
   def initialize name
     @name = name
     @grid = Grid.new
+    @shots = Grid.new
   end
 
   def place_ships lengths
@@ -34,5 +35,15 @@ class Player
 
   def ships
     grid.ships
+  end
+
+  def your_board
+    puts "YOUR BOARD:"
+    grid.display
+  end
+
+  def shots_taken
+    puts "SHOTS TAKEN:"
+    @shots.display
   end
 end
