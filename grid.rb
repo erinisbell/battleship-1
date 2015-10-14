@@ -1,4 +1,6 @@
 class Grid
+  attr_reader :ships
+
   def initialize
     @ships = []
   end
