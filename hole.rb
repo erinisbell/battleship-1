@@ -16,10 +16,21 @@ class Hole
   end
 
   def hit!
+    return false if hit?
     @state = HIT
   end
 
   def hit?
     @state == HIT
+  end
+
+  def to_s
+    case @state
+      when HIT
+        return "X"
+      when MISS
+      when EMPTY
+        return "O"
+    end
   end
 end

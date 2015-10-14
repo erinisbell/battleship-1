@@ -3,6 +3,16 @@ class Grid
     @ships = []
   end
 
+  def fire_at x, y
+    return false if x > 10 || y > 10
+    ship = has_ship_on? x, y
+    if ship
+      ship.fire_at(x, y)
+    else
+      false
+    end
+  end
+
   def has_ship_on? x, y
     @ships.find{|ship| ship.covers? x, y}
   end
@@ -35,8 +45,10 @@ class Grid
     y = letter_to_y(letter)
     slots = []
     (1..10).each do |x|
-      if has_ship_on? x, y
-        slots << "O"
+      ship = has_ship_on? x, y
+      if ship
+        hole = ship.covers? x, y
+        slots << hole.to_s
       else
         slots << " "
       end
