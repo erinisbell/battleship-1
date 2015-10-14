@@ -5,6 +5,16 @@ class Game
     @current_player = 0
   end
 
+  def play
+    welcome
+    place_ships
+    until game_over? do
+      display_status
+      take_turn
+    end
+    puts "Congratulations, #{winner.name}!"
+  end
+
   def welcome
     puts "Welcome, #{@players[0].name} and #{@players[1].name}!\nIt's time to play Battleship."
   end
@@ -30,6 +40,14 @@ class Game
     @players.each do |p|
       p.place_ships PIECES
     end
+  end
+
+  def game_over?
+    @players.find {|p| p.sunk?}
+  end
+
+  def winner
+    @players.find {|p| !p.sunk?}
   end
 
   def display_status

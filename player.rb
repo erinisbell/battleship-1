@@ -14,6 +14,10 @@ class Player
     @shots << hole
   end
 
+  def sunk?
+    @grid.sunk?
+  end
+
   def place_ships lengths
     lengths.each do |length|
       until place_ship length
