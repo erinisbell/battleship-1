@@ -42,12 +42,20 @@ class Grid
     end
   end
 
-  def y_of str
+  def self.y_of str
     str[0].upcase.ord - 64
   end
 
-  def x_of str
+  def self.x_of str
     str[1..-1].to_i
+  end
+
+  def x_of str
+    Grid.x_of str
+  end
+
+  def y_of str
+    Grid.y_of str
   end
 
   private
